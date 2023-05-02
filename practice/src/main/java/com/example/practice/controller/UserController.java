@@ -1,6 +1,7 @@
 package com.example.practice.controller;
 
 import com.example.practice.dto.request.UserCreateRequest;
+import com.example.practice.dto.request.UserUpdateRequest;
 import com.example.practice.dto.response.UserResponse;
 import com.example.practice.service.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -29,5 +30,10 @@ public class UserController {
     @GetMapping("/user")
     public List<UserResponse> findUser() {
         return userService.findAllUser();
+    }
+
+    @PutMapping("/user") // update
+    public UserResponse updateUser(@RequestBody UserUpdateRequest request) {
+        return userService.update(request);
     }
 }

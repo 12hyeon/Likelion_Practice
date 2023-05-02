@@ -2,6 +2,7 @@ package com.example.practice.service;
 
 import com.example.practice.domain.user.User;
 import com.example.practice.dto.request.UserCreateRequest;
+import com.example.practice.dto.request.UserUpdateRequest;
 import com.example.practice.dto.response.UserResponse;
 import com.example.practice.repository.user.UserRepository;
 import org.springframework.stereotype.Service;
@@ -33,4 +34,11 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    public UserResponse update(UserUpdateRequest request) { // id 기준 탐색 -> 이름 변경
+        User user = userRepository.findById(request.getId()).orElseThrow(IllegalAccessError::new);
+        user.setName(request.getName());
+        userRepository.save(user);
+        return new UserResponse(user.getId(), user.getAge(), user.getName());
+
+    }
 }
